@@ -1,0 +1,63 @@
+###
+
+// vscode安装插件 https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+//  ok
+
+GET http://localhost:12762/api/home/ok
+Content-Type: application/json
+
+###
+//  1.	短信发送接口:用户客户端向网关提交短信
+
+GET http://localhost:12762/api/home/Send?content=内容TEST&mobile=13800138000
+Content-Type: application/json
+
+###
+//  2.	点对点发送:用于客户端向网关提交点对点短信，即一个号码一个内容的短信
+
+POST http://localhost:12762/api/home/P2P
+Content-Type: application/json
+
+[
+    {
+        "Mobile": "13800138000",
+        "Content": "内容TEST11"
+    },
+    {
+        "Mobile": "13800138001",
+        "Content": "内容TEST22"
+    }
+]
+
+###
+
+//  3.	余额查询接口：用于客户端查询当前账户余额
+
+GET http://localhost:12762/api/home/Balance
+Content-Type: application/json
+
+###
+// 4.	客户端主动获取状态报告接口:用于客户端到网关获取短信发送的状态报告
+
+GET http://localhost:12762/api/home/Report
+Content-Type: application/json
+
+###
+
+// 5.	客户端主动获取手机上行接口:用户客户端向网关获取手机上行回复的短信
+
+GET http://localhost:12762/api/home/mo
+Content-Type: application/json
+
+###
+
+// 7.	获取统计信息接口:用户客户端向网关获取统计信息
+
+POST http://localhost:12762/api/home/Statis
+Content-Type: application/json
+
+{
+    "BeginTime":"2021-12-28",
+    "EndTime":"2021-12-31"  
+}
