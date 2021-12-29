@@ -122,6 +122,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ErrLog.cs" />
+    <Compile Include="Controllers\UnicomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -146,6 +148,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\IGeekFan.SMSUnicom\IGeekFan.SMSUnicom.csproj">
+      <Project>{2ECA399E-1107-4374-8859-4CF6EC3A6070}</Project>
+      <Name>IGeekFan.SMSUnicom</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\SMS57_SMGW\IGeekFan.SMS57_SMGW.csproj">
       <Project>{8bc66663-16bf-43bb-bba3-aa55b64c8557}</Project>
       <Name>IGeekFan.SMS57_SMGW</Name>

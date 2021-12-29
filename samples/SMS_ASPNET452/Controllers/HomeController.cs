@@ -28,7 +28,7 @@ namespace SMS_ASPNET452.Controllers
         {
             var sms = new SMSMailGateway(smsOption);
             return sms.Send(new SendRequest() { Extno = "1069012345", Content = content, Mobile = mobile });
-}
+        }
 
         [Route("P2P")]
         [HttpPost]
@@ -42,7 +42,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public BalanceResponse Balance()
         {
-            var sms = new SMSMailGateway(smsOption);
+            var sms = new SMSMailGateway(smsOption, ErrLog.Instance);
             return sms.Balance(new BaseRequest() { });
         }
 

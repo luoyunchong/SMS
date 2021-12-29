@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 #endif
 using RestSharp;
+using RestSharp.Serialization.Json;
+using RestSharp.Serializers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +13,14 @@ using System.Web;
 
 namespace IGeekFan.SMS57_SMGW
 {
-    internal class NET45_Log
+    public interface ILogger
+    {
+        void LogInformation(string message);
+    }
+    /// <summary>
+    /// 适配兼容旧项目
+    /// </summary>
+    internal class NET45_Log : ILogger
     {
         static Lazy<NET45_Log> net45Log = new Lazy<NET45_Log>(() => new NET45_Log());
         public static NET45_Log Instance => net45Log.Value;
@@ -21,17 +30,38 @@ namespace IGeekFan.SMS57_SMGW
 
         public void LogInformation(string logInfo)
         {
-            Trace.WriteLine(logInfo);
+            Trace.TraceInformation(logInfo);
         }
     }
-    public class SMSMailGateway
+    public class SMSGatewayClient
     {
+        #region 构造函数
         private readonly SMGW_Option _smsOption;
         private readonly RestClient _restClient;
+        private static ISerializer _serializer = new Lazy<ISerializer>(() => new JsonSerializer()).Value;
 #if NETSTANDARD2_0
-        private readonly ILogger<SMSMailGateway> _logger;
+        private readonly ILogger<SMSGatewayClient> _logger;
+        public SMSGatewayClient(IOptionsMonitor<SMGW_Option> smsOption, ILogger<SMSGatewayClient> logger)
+        {
+            _smsOption = smsOption.CurrentValue;
+            _restClient = new RestClient(_smsOption.SmsUrl);
+            _logger = logger;
+        }
 #else
-        NET45_Log _logger = NET45_Log.Instance;
+        private readonly ILogger _logger;
+        public SMSGatewayClient(SMGW_Option smsOption, ILogger logger = null)
+        {
+            _smsOption = smsOption;
+            _restClient = new RestClient(_smsOption.SmsUrl);
+            if (logger == null)
+            {
+                _logger = NET45_Log.Instance;
+            }
+            else
+            {
+                _logger = logger;
+            }
+        }
 #endif
         private Dictionary<int, string> statusKeyValue = new Dictionary<int, string>()
         {
@@ -60,20 +90,9 @@ namespace IGeekFan.SMS57_SMGW
             }
             return "";
         }
-#if NETSTANDARD2_0
-        public SMSMailGateway(IOptionsMonitor<SMGW_Option> smsOption, ILogger<SMSMailGateway> logger)
-        {
-            _smsOption = smsOption.CurrentValue;
-            _restClient = new RestClient(_smsOption.SmsUrl);
-            _logger = logger;
-        }
-#else
-        public SMSMailGateway(SMGW_Option smsOption)
-        {
-            _smsOption = smsOption;
-            _restClient = new RestClient(_smsOption.SmsUrl);
-        }
-#endif
+
+
+        #endregion
 
         /// <summary>
         /// 1.	短信发送接口:用户客户端向网关提交短信
@@ -84,18 +103,18 @@ namespace IGeekFan.SMS57_SMGW
         {
             //http://host:port/sms?action=send&account=账号&password=密码&mobile=15100000000,15100000001&content=内容&extno=1069012345&rt=json
             string resourceUrl = $"/api/sm57/sms?action=send&account={_smsOption.UserName}&password={_smsOption.Password}&mobile={sendMessage.Mobile}&content={sendMessage.Content}&extno={sendMessage.Extno}&rt={sendMessage.rt}";
-            var request = new RestRequest(resourceUrl, DataFormat.Json);
+            var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
-            var response = _restClient.Get<SendReponse>(request);
+            var response = _restClient.Execute<SendReponse>(request);
             response.Data.StatusText = GetText(response.Data.Status);
-            _logger.LogInformation($@"短信发送接口:\n
-请求地址:{resourceUrl}\n
-请求参数:Mobile:{sendMessage.Mobile},\n
-请求参数:Content:{sendMessage.Content},\n
-请求参数:rt:{sendMessage.rt},\n
-返回参数：{response.Data}\n
-返回ErrorMessage：{response.ErrorMessage}\n
-返回ErrorException：{ response.ErrorException?.StackTrace}\n");
+            _logger.LogInformation($@"短信发送接口:
+请求地址:{response.ResponseUri}
+请求参数:Mobile:{sendMessage.Mobile},
+请求参数:Content:{sendMessage.Content},
+请求参数:rt:{sendMessage.rt},
+返回参数：{_serializer.Serialize(response.Data)}
+返回ErrorMessage：{response.ErrorMessage}
+返回ErrorException：{ response.ErrorException?.StackTrace}");
             return response.Data;
         }
 
@@ -111,21 +130,21 @@ namespace IGeekFan.SMS57_SMGW
             {
                 mobileContentListStr += mobileItem.Mobile + "#" + mobileItem.Content + "\n";
             }
-            //http://192.168.1.4:7822/sms?action=p2p&rt=json&account=922011&password=123456&mobileContentList=13800000001%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b91%0d13800000002%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b92%0d13800000003%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b93%0d13800000004%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b94%0d&extno=10690231221
+            //http://host:port/sms?action=p2p&rt=json&account=922011&password=123456&mobileContentList=13800000001%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b91%0d13800000002%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b92%0d13800000003%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b93%0d13800000004%23%e4%b8%8b%e5%8f%91%e5%86%85%e5%ae%b94%0d&extno=10690231221
             string resourceUrl = $"/api/sm57/sms?action=p2p&account={_smsOption.UserName}&password={_smsOption.Password}&mobileContentList={HttpUtility.UrlEncode(mobileContentListStr)}&extno={sendMessage.Extno}&rt={sendMessage.rt}";
 
-            var request = new RestRequest(resourceUrl, DataFormat.Json);
-            var response = _restClient.Get<P2PResponse>(request);
+            var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
+            var response = _restClient.Execute<P2PResponse>(request);
             response.Data.StatusText = GetText(response.Data.Status);
 
-            _logger.LogInformation($@"点对点发送:\n
-请求地址:{resourceUrl}\n
-请求参数:mobileContentListStr:{mobileContentListStr},\n
-请求参数:Extno:{sendMessage.Extno},\n
-请求参数:rt:{sendMessage.rt},\n
-返回参数：{response.Data}\n
-返回ErrorMessage：{response.ErrorMessage}\n
-返回ErrorException：{ response.ErrorException?.StackTrace}\n");
+            _logger.LogInformation($@"点对点发送:
+请求地址:{response.ResponseUri}
+请求参数:mobileContentListStr:{mobileContentListStr},
+请求参数:Extno:{sendMessage.Extno},
+请求参数:rt:{sendMessage.rt},
+返回参数：{_serializer.Serialize(response.Data)}
+返回ErrorMessage：{response.ErrorMessage}
+返回ErrorException：{ response.ErrorException?.StackTrace}");
 
             return response.Data;
         }
@@ -139,16 +158,16 @@ namespace IGeekFan.SMS57_SMGW
         {
             //http://host:port/sms?action=balance&account=账号&password=密码&rt=json
             string resourceUrl = $"/api/sm57/sms?action=balance&account={_smsOption.UserName}&password={_smsOption.Password}&rt={sendMessage.rt}";
-            var request = new RestRequest(resourceUrl, DataFormat.Json);
+            var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
-            var response = _restClient.Get<BalanceResponse>(request);
+            var response = _restClient.Execute<BalanceResponse>(request);
             response.Data.StatusText = GetText(response.Data.Status);
-            _logger.LogInformation($@"余额查询接口:\n
-请求地址:{resourceUrl}\n
-请求参数:rt:{sendMessage.rt},\n
-返回参数：{response.Data}\n
-返回ErrorMessage：{response.ErrorMessage}\n
-返回ErrorException：{ response.ErrorException?.StackTrace}\n");
+            _logger.LogInformation($@"余额查询接口:
+请求地址:{response.ResponseUri}
+请求参数:rt:{sendMessage.rt},
+返回参数：{_serializer.Serialize(response.Data)}
+返回ErrorMessage：{response.ErrorMessage}
+返回ErrorException：{ response.ErrorException?.StackTrace}");
             return response.Data;
         }
 
@@ -161,18 +180,18 @@ namespace IGeekFan.SMS57_SMGW
         {
             //http://host:port/sms?action=report&account=账号&password=密码&size=10&rt=json
             string resourceUrl = $"/api/sm57/sms?action=report&account={_smsOption.UserName}&password={_smsOption.Password}&size={sendMessage.Size}&rt={sendMessage.rt}";
-            var request = new RestRequest(resourceUrl, DataFormat.Json);
+            var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<ReportResponse>(request);
             response.Data.StatusText = GetText(response.Data.Status);
 
-            _logger.LogInformation($@"客户端主动获取状态报告接口:\n
-请求地址:{resourceUrl}\n
-请求参数:Size:{sendMessage.Size},\n
-请求参数:rt:{sendMessage.rt},\n
-返回参数：{response.Data}\n
-返回ErrorMessage：{response.ErrorMessage}\n
-返回ErrorException：{ response.ErrorException?.StackTrace}\n");
+            _logger.LogInformation($@"客户端主动获取状态报告接口:
+请求地址:{response.ResponseUri}
+请求参数:Size:{sendMessage.Size},
+请求参数:rt:{sendMessage.rt},
+返回参数：{_serializer.Serialize(response.Data)}
+返回ErrorMessage：{response.ErrorMessage}
+返回ErrorException：{ response.ErrorException?.StackTrace}");
             return response.Data;
         }
 
@@ -185,17 +204,17 @@ namespace IGeekFan.SMS57_SMGW
         {
             //http://host:port/sms?action=report&action=report&account=账号&password=密码&size=10&rt=json
             string resourceUrl = $"/api/sm57/sms?action=report&account={_smsOption.UserName}&password={_smsOption.Password}&size={sendMessage.Size}&rt={sendMessage.rt}";
-            var request = new RestRequest(resourceUrl, DataFormat.Json);
+            var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<ReportResponse>(request);
             response.Data.StatusText = GetText(response.Data.Status);
-            _logger.LogInformation($@"客户端主动获取手机上行接口:\n
-请求地址:{resourceUrl}\n
-请求参数:Size:{sendMessage.Size},\n
-请求参数:rt:{sendMessage.rt},\n
-返回参数：{response.Data}\n
-返回ErrorMessage：{response.ErrorMessage}\n
-返回ErrorException：{ response.ErrorException?.StackTrace}\n");
+            _logger.LogInformation($@"客户端主动获取手机上行接口:
+请求地址:{response.ResponseUri}
+请求参数:Size:{sendMessage.Size},
+请求参数:rt:{sendMessage.rt},
+返回参数：{_serializer.Serialize(response.Data)}
+返回ErrorMessage：{response.ErrorMessage}
+返回ErrorException：{ response.ErrorException?.StackTrace}");
             return response.Data;
         }
 
@@ -208,26 +227,21 @@ namespace IGeekFan.SMS57_SMGW
         {
             ///http://host:port/sms?action=statis&account=账号&password=密码&beginTime=20210224&endTime=20210224&rt=json
             string resourceUrl = $"/api/sm57/sms?action=statis&account={_smsOption.UserName}&password={_smsOption.Password}&beginTime={sendMessage.BeginTime.ToString("yyyyMMdd")}&endTime={sendMessage.EndTime.ToString("yyyyMMdd")}&rt={sendMessage.rt}";
-            var request = new RestRequest(resourceUrl, DataFormat.Json);
+            var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<StatisResponse>(request);
             response.Data.StatusText = GetText(response.Data.Status);
 
-            _logger.LogInformation($@"获取统计信息接口:\n
-请求地址:{resourceUrl}\n
-请求参数:BeginTime:{sendMessage.BeginTime.ToString("yyyyMMdd")},\n
-请求参数:EndTime:{sendMessage.EndTime.ToString("yyyyMMdd")},\n
-请求参数:rt:{sendMessage.rt},\n
-返回参数：{response.Data}\n
-返回ErrorMessage：{response.ErrorMessage}\n
-返回ErrorException：{ response.ErrorException?.StackTrace}\n");
+            _logger.LogInformation($@"获取统计信息接口:
+请求地址:{response.ResponseUri}
+请求参数:BeginTime:{sendMessage.BeginTime.ToString("yyyyMMdd")},
+请求参数:EndTime:{sendMessage.EndTime.ToString("yyyyMMdd")},
+请求参数:rt:{sendMessage.rt},
+返回参数：{_serializer.Serialize(response.Data)}
+返回ErrorMessage：{response.ErrorMessage}
+返回ErrorException：{ response.ErrorException?.StackTrace}");
 
-            if (response.IsSuccessful)
-            {
-                return response.Data;
-            }
-
-            throw new System.Exception(response.ErrorMessage, response.ErrorException);
+            return response.Data;
         }
     }
 
@@ -284,8 +298,6 @@ namespace IGeekFan.SMS57_SMGW
 
     public class StatisResponse : BaseResponse
     {
-        public int Status { get; set; }
-        public int Balance { get; set; }
         public List<StatisResponseList> List { get; set; }
     }
 
@@ -383,21 +395,5 @@ namespace IGeekFan.SMS57_SMGW
         /// 接入号，即SP服务号（106XXXXXX）
         /// </summary>
         public string Extno { get; set; }
-    }
-
-    public class SMGW_Option
-    {
-        /// <summary>
-        /// 短信发送地址
-        /// </summary>
-        public string SmsUrl { get; set; }
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public string UserName { get; set; }
-        /// <summary>
-        /// 密码
-        /// </summary>
-        public string Password { get; set; }
     }
 }
