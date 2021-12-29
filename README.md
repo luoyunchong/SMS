@@ -34,7 +34,7 @@
 
 ## IGeekFan.SMSUnicom
 
-[融合云信]([https://maap.wo.cn/index.html](https://maap.wo.cn/index.html))短信发送SDK ，[使用文档点击此链接](./src/IGeekFan.SMSUnicom/README.md)
+[融合云信](https://maap.wo.cn/index.html)短信发送SDK ，[使用文档点击此链接](./src/IGeekFan.SMSUnicom/README.md)
 - ASP.NET Core6项目示例代码：[samples/SMSUnicom_API](./samples/SMSUnicom_API/Program.cs)
 
 融合云信是**中国联通**的短信平台，提供百亿发送量，稳定的平台服务。
