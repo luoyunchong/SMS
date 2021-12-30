@@ -1,8 +1,8 @@
-﻿using IGeekFan.SMS57_SMGW;
-using System.IO;
+﻿using System.IO;
 using System;
 using System.Web;
 using System.Text;
+using IGeekFan.SMS.Core;
 
 namespace SMS_ASPNET452.Controllers
 {

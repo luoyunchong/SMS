@@ -13,6 +13,10 @@
 		<PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\IGeekFan.SMS.Core\IGeekFan.SMS.Core.csproj" />
+	</ItemGroup>
+
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net452.0'">
 		<DefineConstants>net452</DefineConstants>
 	</PropertyGroup>

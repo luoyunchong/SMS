@@ -148,6 +148,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\IGeekFan.SMS.Core\IGeekFan.SMS.Core.csproj">
+      <Project>{77ddffac-d450-4190-b672-a81b05344116}</Project>
+      <Name>IGeekFan.SMS.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\IGeekFan.SMSUnicom\IGeekFan.SMSUnicom.csproj">
       <Project>{2ECA399E-1107-4374-8859-4CF6EC3A6070}</Project>
       <Name>IGeekFan.SMSUnicom</Name>

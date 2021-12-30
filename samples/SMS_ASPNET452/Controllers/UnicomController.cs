@@ -26,7 +26,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public SendTempletMsgResponse SendTempletMsg(string msg, string mobiles)
         {
-            var sms = new SMSUnicomClient(smsOption, UnicomErrLog.Instance);
+            var sms = new SMSUnicomClient(smsOption, ErrLog.Instance);
             return sms.SendTempletMsg(new SendTempletMsgRequest() { Templetid = "1111", Msg = msg, Mobiles = mobiles });
         }
 
@@ -36,28 +36,6 @@ namespace SMS_ASPNET452.Controllers
         {
             var sms = new SMSUnicomClient(smsOption);
             return await sms.SendTempletMsgAsync(new SendTempletMsgRequest() { Templetid = "1111", Msg = msg, Mobiles = mobiles });
-        }
-    }
-
-    public class UnicomErrLog : IGeekFan.SMSUnicom.ILogger
-    {
-        public static UnicomErrLog Instance = new Lazy<UnicomErrLog>(() => new UnicomErrLog()).Value;
-
-        protected UnicomErrLog()
-        {
-        }
-
-        public void LogInformation(string message)
-        {
-            if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/log")))
-            {
-                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/log"));
-            }
-            string filename = HttpContext.Current.Server.MapPath("~/log/error" + DateTime.Now.ToString("yyyyMMdd") + ".log");
-            TextWriter f = new StreamWriter(filename, true, Encoding.UTF8);
-            f = TextWriter.Synchronized(f);
-            f.WriteLine("LogInformation:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + message);
-            f.Close();
         }
     }
 }

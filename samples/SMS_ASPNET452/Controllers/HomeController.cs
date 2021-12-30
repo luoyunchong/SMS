@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace SMS_ASPNET452.Controllers
 {
@@ -19,6 +20,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public string ok()
         {
+            Trace.TraceInformation("ok");
             return "ok";
         }
 
@@ -26,7 +28,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public SendReponse Send(string content, string mobile)
         {
-            var sms = new SMSMailGateway(smsOption);
+            var sms = new SMSGatewayClient(smsOption);
             return sms.Send(new SendRequest() { Extno = "1069012345", Content = content, Mobile = mobile });
         }
 
@@ -34,7 +36,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpPost]
         public P2PResponse P2P(List<P2PMessage> mobileContentList)
         {
-            var sms = new SMSMailGateway(smsOption);
+            var sms = new SMSGatewayClient(smsOption);
             return sms.P2P(new P2PRequest() { Extno = "1069012345", mobileContentList = mobileContentList }); ;
         }
 
@@ -42,7 +44,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public BalanceResponse Balance()
         {
-            var sms = new SMSMailGateway(smsOption, ErrLog.Instance);
+            var sms = new SMSGatewayClient(smsOption, ErrLog.Instance);
             return sms.Balance(new BaseRequest() { });
         }
 
@@ -50,7 +52,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public ReportResponse Report()
         {
-            var sms = new SMSMailGateway(smsOption);
+            var sms = new SMSGatewayClient(smsOption);
             return sms.Report(new ReportRequest() { });
         }
 
@@ -58,7 +60,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpGet]
         public ReportResponse Mo()
         {
-            var sms = new SMSMailGateway(smsOption);
+            var sms = new SMSGatewayClient(smsOption);
             return sms.Mo(new ReportRequest() { });
         }
 
@@ -66,7 +68,7 @@ namespace SMS_ASPNET452.Controllers
         [HttpPost]
         public StatisResponse Statis([FromBody] StatisRequest req)
         {
-            var sms = new SMSMailGateway(smsOption);
+            var sms = new SMSGatewayClient(smsOption);
             return sms.Statis(req);
         }
     }
