@@ -1,0 +1,19 @@
+###
+
+// vscode安装插件 https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+GET http://localhost:12762/api/home/ok
+Content-Type: application/json
+
+###
+//  1.	短信发送接口:用户客户端向网关提交短信
+
+POST http://localhost:12762/api/mas/Send
+Content-Type: application/json
+
+[
+    {
+        "Mobiles": "15651627219",
+        "Content": "cw"
+    }
+]

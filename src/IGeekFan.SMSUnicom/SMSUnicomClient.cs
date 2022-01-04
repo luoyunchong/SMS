@@ -45,15 +45,7 @@ namespace IGeekFan.SMSUnicom
             }
         }
 #endif
-        private string Md5(string s)
-        {
-            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(s);
-                string result = BitConverter.ToString(md5.ComputeHash(bytes));
-                return result.Replace("-", "");
-            }
-        }
+
         /// <summary>
         /// 2.1 短信发送接口
         ///Sign： MD5签名，签名字符串为cpcode+ msg+mobiles+excode+templetid+key，其中key为融合云信平台分配的私钥，将签名字符串用MD5加密后转换为小写字符串。
@@ -62,7 +54,7 @@ namespace IGeekFan.SMSUnicom
         /// <returns></returns>
         public SendTempletMsgResponse SendTempletMsg(SendTempletMsgRequest msgRequest)
         {
-            string sign = Md5(_smsOption.Cpcode + msgRequest.Msg + msgRequest.Mobiles + _smsOption.Excode + msgRequest.Templetid + _smsOption.Accesskey).ToLower();
+            string sign = SecurityUtil.Md5(_smsOption.Cpcode + msgRequest.Msg + msgRequest.Mobiles + _smsOption.Excode + msgRequest.Templetid + _smsOption.Accesskey).ToLower();
             var request = new RestRequest("/umcinterface/sendtempletmsg", Method.POST, DataFormat.Json);
             request.AddJsonBody(new
             {
@@ -92,7 +84,7 @@ namespace IGeekFan.SMSUnicom
         /// <returns></returns>
         public async Task<SendTempletMsgResponse> SendTempletMsgAsync(SendTempletMsgRequest msgRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
-            string sign = Md5(_smsOption.Cpcode + msgRequest.Msg + msgRequest.Mobiles + _smsOption.Excode + msgRequest.Templetid + _smsOption.Accesskey).ToLower();
+            string sign = SecurityUtil.Md5(_smsOption.Cpcode + msgRequest.Msg + msgRequest.Mobiles + _smsOption.Excode + msgRequest.Templetid + _smsOption.Accesskey).ToLower();
             var request = new RestRequest("/umcinterface/sendtempletmsg", Method.POST, DataFormat.Json);
             request.AddJsonBody(new
             {

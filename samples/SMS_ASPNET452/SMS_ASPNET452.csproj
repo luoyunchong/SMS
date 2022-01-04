@@ -123,6 +123,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ErrLog.cs" />
+    <Compile Include="Controllers\MASController.cs" />
     <Compile Include="Controllers\UnicomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -148,6 +149,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\IGeekFan.MAS\IGeekFan.MAS.csproj">
+      <Project>{A257737A-AA48-436F-AA47-F62B09BCACC2}</Project>
+      <Name>IGeekFan.MAS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\IGeekFan.SMS.Core\IGeekFan.SMS.Core.csproj">
       <Project>{77ddffac-d450-4190-b672-a81b05344116}</Project>
       <Name>IGeekFan.SMS.Core</Name>

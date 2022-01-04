@@ -14,6 +14,7 @@
 |  --------- |  --------- |  --------- | ---------
 | `IGeekFan.SMS57_SMGW` | [![NuGet](https://img.shields.io/nuget/v/IGeekFan.SMS57_SMGW.svg?style=flat-square&label=nuget&color=fedcba)](https://www.nuget.org/packages/IGeekFan.SMS57_SMGW/) | ![downloads](https://img.shields.io/nuget/dt/IGeekFan.SMS57_SMGW.svg) |.NET4.5.2/.NETStandard2.0
 | `IGeekFan.SMSUnicom` | [![NuGet](https://img.shields.io/nuget/v/IGeekFan.SMSUnicom.svg?style=flat-square&label=nuget&color=fedcba)](https://www.nuget.org/packages/IGeekFan.SMSUnicom/) | ![downloads](https://img.shields.io/nuget/dt/IGeekFan.SMSUnicom.svg) |.NET4.5.2/.NETStandard2.0
+| `IGeekFan.MAS` | [![NuGet](https://img.shields.io/nuget/v/IGeekFan.MAS.svg?style=flat-square&label=nuget&color=fedcba)](https://www.nuget.org/packages/IGeekFan.MAS/) | ![downloads](https://img.shields.io/nuget/dt/IGeekFan.MAS.svg) |.NET4.5.2/.NETStandard2.0
 
 ## IGeekFan.SMS57_SMGW
 
@@ -41,3 +42,9 @@
 - 海量发送能力：三大运营商短信全网覆盖，全国用户畅行无阻，支持短信双向收发
 - 组织管理功能：提供多账号的统一计费、权限控制等能力，支持多层级管理模式
 - 智能运维&立体化监控实时监控：精准掌握服务健康状况、服务拓扑，调用链跟踪可视化呈现、多维度关联分析，预防系统级故障
+
+## IGeekFan.MAS
+
+[云MAS业务平台](https://mas.10086.cn/login)短信发送SDK ，[使用文档点击此链接](./src/IGeekFan.MAS/README.md)
+
+中国移动提供的云MAS业务平台，用于短信、彩信的发送。

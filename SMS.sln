@@ -12,7 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{352AE823-4116-443B-9B3B-27EFF6633A7B}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
+		docs\MAS_HTTPS短信接口文档.docx = docs\MAS_HTTPS短信接口文档.docx
 		README.md = README.md
+		docs\SMS57-SMGW-客户接口说明文档.docx = docs\SMS57-SMGW-客户接口说明文档.docx
+		docs\融合云信平台HTTP接口文档_V1.7.2.doc = docs\融合云信平台HTTP接口文档_V1.7.2.doc
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGeekFan.SMS57_SMGW", "src\SMS57_SMGW\IGeekFan.SMS57_SMGW.csproj", "{8BC66663-16BF-43BB-BBA3-AA55B64C8557}"
@@ -25,9 +28,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGeekFan.SMSUnicom", "src\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSUnicom_API", "samples\SMSUnicom_API\SMSUnicom_API.csproj", "{0FA7B4A3-6B89-47FA-8EDC-65A237175362}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGeekFan.MAS", "src\IGeekFan.MAS\IGeekFan.MAS.csproj", "{A257737A-AA48-436F-AA47-F62B09BCACC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGeekFan.MAS", "src\IGeekFan.MAS\IGeekFan.MAS.csproj", "{A257737A-AA48-436F-AA47-F62B09BCACC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGeekFan.SMS.Core", "src\IGeekFan.SMS.Core\IGeekFan.SMS.Core.csproj", "{77DDFFAC-D450-4190-B672-A81B05344116}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGeekFan.SMS.Core", "src\IGeekFan.SMS.Core\IGeekFan.SMS.Core.csproj", "{77DDFFAC-D450-4190-B672-A81B05344116}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS_MAS_API", "samples\SMS_MAS_API\SMS_MAS_API.csproj", "{6F0AE712-E41E-4167-9605-07307776616A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +68,10 @@ Global
 		{77DDFFAC-D450-4190-B672-A81B05344116}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77DDFFAC-D450-4190-B672-A81B05344116}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77DDFFAC-D450-4190-B672-A81B05344116}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F0AE712-E41E-4167-9605-07307776616A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F0AE712-E41E-4167-9605-07307776616A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F0AE712-E41E-4167-9605-07307776616A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F0AE712-E41E-4167-9605-07307776616A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +84,7 @@ Global
 		{0FA7B4A3-6B89-47FA-8EDC-65A237175362} = {DF70C8BE-1933-45BB-9B6E-9F00380332A2}
 		{A257737A-AA48-436F-AA47-F62B09BCACC2} = {A395AA61-C752-410E-AD37-1015A8398A2F}
 		{77DDFFAC-D450-4190-B672-A81B05344116} = {A395AA61-C752-410E-AD37-1015A8398A2F}
+		{6F0AE712-E41E-4167-9605-07307776616A} = {DF70C8BE-1933-45BB-9B6E-9F00380332A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BDD736E4-F4F4-4523-B70A-C0E562D3CF57}

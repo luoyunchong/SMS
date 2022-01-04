@@ -16,10 +16,10 @@ namespace SMS_ASPNET452.Controllers
     {
         private readonly SMSUnicomOption smsOption = new SMSUnicomOption()
         {
-            Cpcode = ConfigurationManager.AppSettings["Cpcode"].ToString(),
-            Accesskey = ConfigurationManager.AppSettings["Accesskey"].ToString(),
-            Excode = ConfigurationManager.AppSettings["Excode"].ToString(),
-            SmsUrl = ConfigurationManager.AppSettings["SmsUrl"].ToString()
+            Cpcode = ConfigurationManager.AppSettings["Unicom_Cpcode"],
+            Accesskey = ConfigurationManager.AppSettings["Unicom_Accesskey"],
+            Excode = ConfigurationManager.AppSettings["Unicom_Excode"],
+            SmsUrl = ConfigurationManager.AppSettings["Unicom_SmsUrl"]
         };
 
         [Route("SendTempletMsg")]

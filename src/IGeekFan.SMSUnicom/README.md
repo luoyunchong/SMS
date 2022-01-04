@@ -113,10 +113,10 @@ public class UnicomController : ApiController
 {
     private readonly SMSUnicomOption smsOption = new SMSUnicomOption()
     {
-        Cpcode = ConfigurationManager.AppSettings["Unicom_Cpcode"].ToString(),
-        Accesskey = ConfigurationManager.AppSettings["Unicom_Accesskey"].ToString(),
-        Excode = ConfigurationManager.AppSettings["Unicom_Excode"].ToString(),
-        SmsUrl = ConfigurationManager.AppSettings["Unicom_SmsUrl"].ToString()
+        Cpcode = ConfigurationManager.AppSettings["Unicom_Cpcode"],
+        Accesskey = ConfigurationManager.AppSettings["Unicom_Accesskey"],
+        Excode = ConfigurationManager.AppSettings["Unicom_Excode"],
+        SmsUrl = ConfigurationManager.AppSettings["Unicom_SmsUrl"]
     };
 
     [Route("SendTempletMsg")]

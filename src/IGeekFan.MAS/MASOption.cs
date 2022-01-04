@@ -3,6 +3,10 @@
     public class MASOption
     {
         /// <summary>
+        /// 发送的提交地址
+        /// </summary>
+        public string SmsUrl { get; set; }
+        /// <summary>
         /// 集团客户名称
         /// </summary>
         public string EcName { get; set; }
@@ -11,16 +15,12 @@
         /// </summary>
         public string ApId { get; set; }
         /// <summary>
-        /// 密码
+        /// 对应创建的接口账号的接口密码
         /// </summary>
         public string SecretKey { get; set; }
         /// <summary>
-        /// 网关签名
+        /// 签名编码。在云MAS平台『管理』→『接口管理』→『短信接入用户管理』获取。
         /// </summary>
         public string Sign { get; set; }
-        /// <summary>
-        /// 发送的提交地址
-        /// </summary>
-        public string Sendurl { get; set; }
     }
 }

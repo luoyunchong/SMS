@@ -11,9 +11,9 @@ namespace SMS_ASPNET452.Controllers
     {
         private readonly SMGW_Option smsOption = new SMGW_Option()
         {
-            SmsUrl = ConfigurationManager.AppSettings["SmsUrl"].ToString(),
-            UserName = ConfigurationManager.AppSettings["UserName"].ToString(),
-            Password = ConfigurationManager.AppSettings["Password"].ToString()
+            SmsUrl = ConfigurationManager.AppSettings["SmsUrl"],
+            UserName = ConfigurationManager.AppSettings["UserName"],
+            Password = ConfigurationManager.AppSettings["Password"]
         };
 
         [Route("ok")]
