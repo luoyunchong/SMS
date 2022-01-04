@@ -139,17 +139,17 @@ public class UnicomController : ApiController
 
 ## ASP.NET MVC 日志重写
 
-默认会有`Trace.TraceInformation`处理日志，提示日志重写功能。继承接口`IGeekFan.SMSUnicom.ILogger`，以下仅供参考，自动创建log目录并按日期记录日志，可自行实现 。
+默认会有`Trace.TraceInformation`处理日志，提示日志重写功能。继承接口`IGeekFan.SMS.Core.ILogger`，以下仅供参考，自动创建log目录并按日期记录日志，可自行实现 。
 
 ```csharp
 /// <summary>
 /// 自定义日志
 /// </summary>
-public class UnicomErrLog : IGeekFan.SMSUnicom.ILogger
+public class ErrLog : IGeekFan.SMS.Core.ILogger
 {
     public static UnicomErrLog Instance = new Lazy<UnicomErrLog>(() => new UnicomErrLog()).Value;
 
-    protected UnicomErrLog()
+    protected ErrLog()
     {
     }
 
@@ -173,7 +173,7 @@ public class UnicomErrLog : IGeekFan.SMSUnicom.ILogger
     [HttpGet]
     public SendTempletMsgResponse SendTempletMsg(string msg, string mobiles)
     {
-        var sms = new SMSUnicomClient(smsOption,UnicomErrLog.Instance);
+        var sms = new SMSUnicomClient(smsOption,ErrLog.Instance);
         return sms.SendTempletMsg(new SendTempletMsgRequest() { Templetid = "1111", Msg = msg, Mobiles = mobiles });
     }
 ```

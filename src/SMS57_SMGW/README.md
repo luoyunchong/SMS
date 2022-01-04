@@ -161,13 +161,13 @@ public class HomeController : ApiController
 
 ## ASP.NET MVC 日志重写
 
-默认会有`Trace.TraceInformation`处理日志，提示日志重写功能。继承接口`IGeekFan.SMS57_SMGW.ILogger`，以下仅供参考，自动创建log目录并按日期记录日志，可自行实现 。
+默认会有`Trace.TraceInformation`处理日志，提示日志重写功能。继承接口`IGeekFan.SMS.Core.ILogger`，以下仅供参考，自动创建log目录并按日期记录日志，可自行实现 。
 
 ```csharp
 /// <summary>
 /// 自定义日志
 /// </summary>
-public class ErrLog : IGeekFan.SMS57_SMGW.ILogger
+public class ErrLog : IGeekFan.SMS.Core.ILogger
 {
     public static ErrLog Instance = new Lazy<ErrLog>(() => new ErrLog()).Value;
 

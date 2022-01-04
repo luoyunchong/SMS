@@ -50,11 +50,41 @@ builder.Services.AddTransient<MASClient>();
 ```
 
 ```cs
-app.MapPost("/Send", (MASClient sms,[FromBody] SendMsgRequest sendMsg) =>
+app.MapPost("/sendmsg", (MASClient sms, [FromBody] SendMsgRequest sendMsg) =>
 {
     return sms.SendMsg(sendMsg);
 });
 
+app.MapPost("/sendtmpsubmit", (MASClient sms, [FromBody] TmpsubmitRequest sendMsg) =>
+{
+    return sms.SendTmpsubmit(sendMsg);
+});
+
+/// <summary>
+/// 批量发送短信
+/// </summary>
+app.MapPost("/sendmsg-batch", (MASClient sms) =>
+{
+    SendMsgRequest sendMsg = new SendMsgRequest();
+    var dict = new Dictionary<string, string>()
+    {
+        {"手机号1","您的验证码是:4813" },
+        {"手机号2","您的验证码是:2314" }
+    };
+    string contents = JsonSerializer.Serialize(dict);
+    sendMsg.Content = contents;
+    return sms.SendMsgAsync(sendMsg);
+}).WithDisplayName("批量发送短信");
+```
+
+- 批量发送返回值
+```json
+ {
+  "rspcod": "success",
+  "msgGroup": "0105013527000001139923",
+  "success": true,
+  "rspText": "数据验证通过。"
+}
 ```
 
 
@@ -109,3 +139,7 @@ public class MasController : ApiController
 ## 完整代码参考
 
 - [/samples/SMS_ASPNET452/Controllers/MASController.cs](../../samples/SMS_ASPNET452/Controllers/MASController.cs)
+
+## ASP.NET MVC 日志重写
+
+- [/src/IGeekFan.SMSUnicom/README.md](../../src/IGeekFan.SMSUnicom/README.md)

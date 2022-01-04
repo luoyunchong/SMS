@@ -13,7 +13,7 @@ Content-Type: application/json
 
 [
     {
-        "Mobiles": "15651627219",
-        "Content": "cw"
+        "Mobiles": "13800138000",
+        "Content": "你收到一个验证码：123456，请在5分钟内完成验证。"
     }
 ]

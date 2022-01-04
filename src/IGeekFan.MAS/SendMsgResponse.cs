@@ -14,5 +14,9 @@
         /// 数据校验结果。
         /// </summary>
         public bool Success { get; set; }
+        /// <summary>
+        /// 根据响应状态 解析出具体的文本
+        /// </summary>
+        public string RspText { get; set; }
     }
 }

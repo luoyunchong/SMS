@@ -88,7 +88,8 @@ namespace IGeekFan.SMS57_SMGW
             var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<SendReponse>(request);
-            response.Data.StatusText = GetText(response.Data.Status);
+            if (response.Data != null) response.Data.StatusText = GetText(response.Data.Status);
+
             _logger.LogInformation($@"短信发送接口:
 请求地址:{response.ResponseUri}
 请求参数:Mobile:{sendMessage.Mobile},
@@ -97,6 +98,7 @@ namespace IGeekFan.SMS57_SMGW
 返回参数：{_serializer.Serialize(response.Data)}
 返回ErrorMessage：{response.ErrorMessage}
 返回ErrorException：{ response.ErrorException?.StackTrace}");
+
             return response.Data;
         }
 
@@ -117,7 +119,7 @@ namespace IGeekFan.SMS57_SMGW
 
             var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
             var response = _restClient.Execute<P2PResponse>(request);
-            response.Data.StatusText = GetText(response.Data.Status);
+            if (response.Data != null) response.Data.StatusText = GetText(response.Data.Status);
 
             _logger.LogInformation($@"点对点发送:
 请求地址:{response.ResponseUri}
@@ -143,13 +145,15 @@ namespace IGeekFan.SMS57_SMGW
             var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<BalanceResponse>(request);
-            response.Data.StatusText = GetText(response.Data.Status);
+            if (response.Data != null) response.Data.StatusText = GetText(response.Data.Status);
+
             _logger.LogInformation($@"余额查询接口:
 请求地址:{response.ResponseUri}
 请求参数:rt:{sendMessage.rt},
 返回参数：{_serializer.Serialize(response.Data)}
 返回ErrorMessage：{response.ErrorMessage}
 返回ErrorException：{ response.ErrorException?.StackTrace}");
+
             return response.Data;
         }
 
@@ -165,7 +169,7 @@ namespace IGeekFan.SMS57_SMGW
             var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<ReportResponse>(request);
-            response.Data.StatusText = GetText(response.Data.Status);
+            if (response.Data != null) response.Data.StatusText = GetText(response.Data.Status);
 
             _logger.LogInformation($@"客户端主动获取状态报告接口:
 请求地址:{response.ResponseUri}
@@ -174,6 +178,7 @@ namespace IGeekFan.SMS57_SMGW
 返回参数：{_serializer.Serialize(response.Data)}
 返回ErrorMessage：{response.ErrorMessage}
 返回ErrorException：{ response.ErrorException?.StackTrace}");
+
             return response.Data;
         }
 
@@ -189,7 +194,8 @@ namespace IGeekFan.SMS57_SMGW
             var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<ReportResponse>(request);
-            response.Data.StatusText = GetText(response.Data.Status);
+            if (response.Data != null) response.Data.StatusText = GetText(response.Data.Status);
+
             _logger.LogInformation($@"客户端主动获取手机上行接口:
 请求地址:{response.ResponseUri}
 请求参数:Size:{sendMessage.Size},
@@ -197,6 +203,7 @@ namespace IGeekFan.SMS57_SMGW
 返回参数：{_serializer.Serialize(response.Data)}
 返回ErrorMessage：{response.ErrorMessage}
 返回ErrorException：{ response.ErrorException?.StackTrace}");
+
             return response.Data;
         }
 
@@ -212,7 +219,7 @@ namespace IGeekFan.SMS57_SMGW
             var request = new RestRequest(resourceUrl, Method.POST, DataFormat.Json);
 
             var response = _restClient.Execute<StatisResponse>(request);
-            response.Data.StatusText = GetText(response.Data.Status);
+            if (response.Data != null) response.Data.StatusText = GetText(response.Data.Status);
 
             _logger.LogInformation($@"获取统计信息接口:
 请求地址:{response.ResponseUri}
