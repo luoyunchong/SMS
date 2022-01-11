@@ -147,7 +147,7 @@ public class UnicomController : ApiController
 /// </summary>
 public class ErrLog : IGeekFan.SMS.Core.ILogger
 {
-    public static UnicomErrLog Instance = new Lazy<UnicomErrLog>(() => new UnicomErrLog()).Value;
+    public static ErrLog Instance = new Lazy<ErrLog>(() => new ErrLog()).Value;
 
     protected ErrLog()
     {
