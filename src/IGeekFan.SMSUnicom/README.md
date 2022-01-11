@@ -167,7 +167,7 @@ public class ErrLog : IGeekFan.SMS.Core.ILogger
     }
 }
 ```
-调用时，在实例化SMSGatewayClient时，指定`UnicomErrLog.Instance`,在调用`SendTempletMsg`方法时，内部记录的日志将调用自已的实现。
+调用时，在实例化SMSGatewayClient时，指定`ErrLog.Instance`,在调用`SendTempletMsg`方法时，内部记录的日志将调用自已的实现。
 ```csharp
     [Route("SendTempletMsg")]
     [HttpGet]
