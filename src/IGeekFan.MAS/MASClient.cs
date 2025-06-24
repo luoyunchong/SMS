@@ -60,7 +60,7 @@ namespace IGeekFan.MAS
 
         private string GetText(string key)
         {
-            if (statusKeyValue.ContainsKey(key))
+            if (!string.IsNullOrEmpty(key) && statusKeyValue.ContainsKey(key))
             {
                 return statusKeyValue[key];
             }
