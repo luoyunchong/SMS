@@ -20,7 +20,7 @@
 
 ## IGeekFan.SMS57_SMGW
 
-An SDK for sending SMS through Qixintong (Tongqiubao): [http://tqiu.cn/](http://tqiu.cn/). See the [usage documentation](./src/SMS57_SMGW/README.md).
+An SDK for sending SMS through Qixintong (Tongqiubao): [http://tqiu.cn/](http://tqiu.cn/). See the [usage documentation](./src/SMS57_SMGW/README.en.md).
 - ASP.NET Core6 sample code：[samples/SMS_API](./samples/SMS_API/Program.cs)
 - ASP.NET MVC 452  sample code：[samples/SMS_ASPNET452](./samples/SMS_ASPNET452/Controllers/HomeController.cs)
 - SMGW stands for SMS gateway
@@ -37,7 +37,7 @@ Statistics URL：http://host:port/api/sm57/sms?action=statis
 
 ## IGeekFan.SMSUnicom
 
-SMS SDK for [Ronghe Yunxin](https://maap.wo.cn/index.html). See the [usage documentation](./src/IGeekFan.SMSUnicom/README.md).
+SMS SDK for [Ronghe Yunxin](https://maap.wo.cn/index.html). See the [usage documentation](./src/IGeekFan.SMSUnicom/README.en.md).
 - ASP.NET Core6 sample code：[samples/SMSUnicom_API](./samples/SMSUnicom_API/Program.cs)
 
 Ronghe Yunxin is **China Unicom**'s SMS platform, offering stable service at large scale.
@@ -47,6 +47,6 @@ Ronghe Yunxin is **China Unicom**'s SMS platform, offering stable service at lar
 
 ## IGeekFan.MAS
 
-SMS SDK for the [Cloud MAS platform](https://mas.10086.cn/login). See the [usage documentation](./src/IGeekFan.MAS/README.md).
+SMS SDK for the [Cloud MAS platform](https://mas.10086.cn/login). See the [usage documentation](./src/IGeekFan.MAS/README.en.md).
 
 China Mobile's Cloud MAS platform is used to send SMS and MMS messages.
