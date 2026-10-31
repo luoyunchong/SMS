@@ -2,6 +2,9 @@
 
 ﻿## MAS
 
+Supplier HTTPS reference: [English translation](../../docs/MAS_HTTPS.en.md) | [Chinese original](../../docs/MAS_HTTPS短信接口文档.docx)
+
+
 China Mobile's Cloud MAS platform is used to send SMS and MMS messages.
 
 - [https://mas.10086.cn/login](https://mas.10086.cn/login)
