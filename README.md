@@ -1,10 +1,10 @@
-[English](README.en.md) | **简体中文**
+**English** | [简体中文](README.zh-CN.md)
 
 
 <div align="center">
 <h1 align="center"> <img alt="logo" src="./docs/images/logo.png" width="40px" />  SMS </h1>
 
-**SMS** 为.NET 项目提供了更多厂商短信的实现
+**SMS** provides additional SMS provider implementations for .NET projects.
 
 [![.NET IDE Rider](https://img.shields.io/static/v1?style=float&logo=rider&label=Rider&message=jetbrains&color=red)](https://www.jetbrains.com/rider/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/luoyunchong/SMS/master/LICENSE)
@@ -20,33 +20,33 @@
 
 ## IGeekFan.SMS57_SMGW
 
-实现SMS 企信通短信、即同求宝[http://tqiu.cn/](http://tqiu.cn/)的短信发送SDK ，[使用文档点击此链接](./src/SMS57_SMGW/README.md)
-- ASP.NET Core6项目示例代码：[samples/SMS_API](./samples/SMS_API/Program.cs)
-- ASP.NET MVC 452 项目示例代码：[samples/SMS_ASPNET452](./samples/SMS_ASPNET452/Controllers/HomeController.cs)
-- (SMGW) 代指 短信网关
-- (SMGW) 即：SMS Gateway
+An SDK for sending SMS through Qixintong (Tongqiubao): [http://tqiu.cn/](http://tqiu.cn/). See the [usage documentation](./src/SMS57_SMGW/README.en.md).
+- ASP.NET Core6 sample code：[samples/SMS_API](./samples/SMS_API/Program.cs)
+- ASP.NET MVC 452  sample code：[samples/SMS_ASPNET452](./samples/SMS_ASPNET452/Controllers/HomeController.cs)
+- SMGW stands for SMS gateway
+- SMGW: SMS Gateway
 
 ```
-下发地址：http(s)://ip:port/api/sm57/sms?action=send
-点对点地址：http://host:port/sms?action=p2p
-余额地址：http(s)://ip:port/api/sm57/sms?action=balance
-报告地址：http(s)://ip:port/api/sm57/sms?action=report
-上行地址：http(s)://ip:port/api/sm57/sms?action=mo
-统计地址：http://host:port/api/sm57/sms?action=statis
+Send URL：http(s)://ip:port/api/sm57/sms?action=send
+Peer-to-peer URL：http://host:port/sms?action=p2p
+Balance URL：http(s)://ip:port/api/sm57/sms?action=balance
+Report URL：http(s)://ip:port/api/sm57/sms?action=report
+Inbound URL：http(s)://ip:port/api/sm57/sms?action=mo
+Statistics URL：http://host:port/api/sm57/sms?action=statis
 ```
 
 ## IGeekFan.SMSUnicom
 
-[融合云信](https://maap.wo.cn/index.html)短信发送SDK ，[使用文档点击此链接](./src/IGeekFan.SMSUnicom/README.md)
-- ASP.NET Core6项目示例代码：[samples/SMSUnicom_API](./samples/SMSUnicom_API/Program.cs)
+SMS SDK for [Ronghe Yunxin](https://maap.wo.cn/index.html). See the [usage documentation](./src/IGeekFan.SMSUnicom/README.en.md).
+- ASP.NET Core6 sample code：[samples/SMSUnicom_API](./samples/SMSUnicom_API/Program.cs)
 
-融合云信是**中国联通**的短信平台，提供百亿发送量，稳定的平台服务。
-- 海量发送能力：三大运营商短信全网覆盖，全国用户畅行无阻，支持短信双向收发
-- 组织管理功能：提供多账号的统一计费、权限控制等能力，支持多层级管理模式
-- 智能运维&立体化监控实时监控：精准掌握服务健康状况、服务拓扑，调用链跟踪可视化呈现、多维度关联分析，预防系统级故障
+Ronghe Yunxin is **China Unicom**'s SMS platform, offering stable service at large scale.
+- Large-scale delivery: coverage across China's three major carriers, with two-way SMS support
+- Organization management: unified billing and access controls for multiple accounts, with multilevel management
+- Operations and monitoring: service health, topology, visualized call tracing, and multidimensional analysis to help prevent system failures
 
 ## IGeekFan.MAS
 
-[云MAS业务平台](https://mas.10086.cn/login)短信发送SDK ，[使用文档点击此链接](./src/IGeekFan.MAS/README.md)
+SMS SDK for the [Cloud MAS platform](https://mas.10086.cn/login). See the [usage documentation](./src/IGeekFan.MAS/README.en.md).
 
-中国移动提供的云MAS业务平台，用于短信、彩信的发送。
+China Mobile's Cloud MAS platform is used to send SMS and MMS messages.
