@@ -1,3 +1,5 @@
+[English](README.en.md) | **简体中文**
+
 
 <div align="center">
 <h1 align="center"> <img alt="logo" src="./docs/images/logo.png" width="40px" />  SMS </h1>
