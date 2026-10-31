@@ -14,7 +14,7 @@
 统计地址：http://host:port/api/sm57/sms?action=statis
 ```
 
-See the [SMS57-SMGW client API documentation](../../docs/SMS57-SMGW-客户接口说明文档.docx)
+See the [English SMS57-SMGW interface reference](../../docs/SMS57-SMGW.en.md) ([Chinese original](../../docs/SMS57-SMGW-客户接口说明文档.docx))
 
 The API appears to be provided by Tongqiubao at [http://tqiu.cn/](http://tqiu.cn/); the source documentation was supplied during implementation.
 
