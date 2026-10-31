@@ -9,7 +9,7 @@ Ronghe Yunxin is **China Unicom**'s SMS platform, offering stable service at lar
 
 ### Website [https://maap.wo.cn/index.html](https://maap.wo.cn/index.html)
 
-See the [Ronghe Yunxin HTTP API documentation V1.7.2](../../docs/融合云信平台HTTP接口文档_V1.7.2.doc); the latest documentation and user manual are also available from the official website.
+See the [English Ronghe Yunxin HTTP API reference v1.7.2](../../docs/Ronghe-Yunxin-HTTP-v1.7.2.en.md) ([Chinese original](../../docs/融合云信平台HTTP接口文档_V1.7.2.doc)); the latest documentation and user manual are also available from the official website.
 
 ## Nuget Packages
 
